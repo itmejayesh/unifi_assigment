@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 interface Point {
@@ -8,65 +8,64 @@ interface Point {
   y: number;
 }
 
-const Globe = () => {
-  const [points, setPoints] = useState<Point[]>([
-    { x: 122, y: 278 },
-    { x: 189, y: 304 },
-    { x: 287, y: 289 },
-    { x: 377, y: 213 }
-  ]);
+interface DotProps {
+  x: string;
+  y: string;
+  isVisible: boolean;
+}
 
-  useEffect(() => {
-    const animateDots = async () => {
-      for (let i = 0; i < points.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, i * 1000)); // Adjust delay as needed
-        setPoints(prevPoints => {
-          return prevPoints.map((point, index) => {
-            if (index === i) {
-              return { ...point, opacity: 1 };
-            } else {
-              return { ...point, opacity: 0 };
-            }
-          });
-        });
-      }
-      // After the loop completes, reset all points to initial state
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for animation to complete
-      setPoints(prevPoints => prevPoints.map(point => ({ ...point, opacity: 0 })));
-      // Restart animation
-      animateDots();
-    };
+const coordinates:Point[] = [
+  { x: 118, y: 273 },
+  { x: 185, y: 300 },
+  { x: 287, y: 282 },
+  { x: 373, y: 210 },
+];
 
-    animateDots();
-  }, [points]);
-  
+const Dot:React.FC<DotProps> = ({ x, y, isVisible }) => (
+  <motion.div
+    initial={{ opacity: 0, scale:0.5 }}
+    animate={{ opacity: isVisible ? 1 : 0, scale: 1.5 }}
+    transition={{ duration: 1 }}
+    style={{
+      position: "absolute",
+      width: '2%',
+      height: '2%',
+      borderRadius: "50%",
+      backgroundColor: "blue",
+      top: y,
+      left: x,
+    }}
+  />
+);
+
+const Globe: React.FC = () => {
+  const [visibleIndex, setVisibleIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setVisibleIndex((prevIndex) => (prevIndex + 1) % coordinates.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="h-[60vh] flex justify-center w-full items-center bg-gray-400 relative">
-      <div style={{ position: "relative" }}>
-        <Image src={`/02.jpg`} width={500} height={20} alt="" />
-        {points.map((point, index) => (
-          <motion.div
-            key={index}
-            style={{
-              position: "absolute",
-              left: `${point.x}px`,
-              top: `${point.y}px`,
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              backgroundColor: "red",
-              opacity: 0 // Initially hide the dot
-            }}
-            initial={{ x: point.x, y: point.y }} // Set initial position based on point's x and y
-            animate={{ opacity: [0, 1, 0], scale: [1, 1.5, 1] }}
-            transition={{ duration: 1, times: [0, 0.5, 1], repeat: Infinity }}
-          />
-        ))}
+    <div className="h-[60vh] flex justify-center w-full items-center  bg-gray-300 relative">
+      <div className=" relative h-auto w-[60vh]">
+        <Image src={`/02.jpg`} width={500} height={500} alt="" className=" mix-blend-multiply" layout="responsive"/>
+        <AnimatePresence>
+          {coordinates.map((coord, index) => (
+            <Dot
+              key={index}
+              x={`${(coord.x / 500) * 100}%`}
+              y={`${(coord.y / 500) * 100}%`}
+              isVisible={index === visibleIndex}
+            />
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
 };
 
 export default Globe;
-
