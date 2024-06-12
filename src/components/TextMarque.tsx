@@ -6,8 +6,8 @@ const TextMarque = () => {
   
   return (
     <section>
-      <div className="h-[40vh]">
-        <div className=" overflow-hidden h-full">
+      <div className="h-[30vh] xl:h-[45vh]">
+        <div className="overflow-x-hidden h-full w-full my-auto">
         <motion.h1 
         initial={{ x: "-100%" }}
         animate={{ x: ["-150%", "0%", "150%"]}}
@@ -18,8 +18,8 @@ const TextMarque = () => {
           repeat: Infinity,
           repeatType: "reverse"
         }}
-        className="left-to-right text-white text-9xl text-nowrap font-outline-2
-        uppercase px-2 py-4">bridging innovation & regulation</motion.h1>
+        className="text-white text-5xl md:text-6xl lg:text-9xl font-outline-2 uppercase p-8 whitespace-nowrap
+        ">bridging innovation & regulation</motion.h1>
 
           <motion.h1 
         initial={{ x: "-100%" }}
@@ -31,7 +31,7 @@ const TextMarque = () => {
           repeat: Infinity,
           repeatType: "reverse"
         }}
-          className="text-white text-9xl text-nowrap font-outline-2 uppercase px-2 py-4">bridging innovation
+          className="text-white text-5xl md:text-6xl lg:text-9xl font-outline-2 uppercase p-8 whitespace-nowrap">bridging innovation
            & regulation</motion.h1>
         </div>
       </div>

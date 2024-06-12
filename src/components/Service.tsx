@@ -8,7 +8,7 @@ const Service = () => {
 
   return (
     <section className="bg-black p-10">
-      <div className="h-full w-full lg:w-1/2 lg:mx-auto rounded-xl bg-gradient-to-b bg-grad from-white via-[#7367F0] to-[#7367F0] p-1">
+      <div className="h-full w-full xl:w-[70%] mx-auto rounded-xl bg-gradient-to-b bg-grad from-white via-[#7367F0] to-[#7367F0] p-1">
         <div className=" bg-gray-600 h-full w-full overflow-hidden flex flex-col rounded-xl ">
           <h2 className="text-white text-4xl text-center p-5 capitalize py-5">
             Explore Our Service

@@ -26,7 +26,7 @@ const HomePage = () => {
   return (
     <main className="">
       <nav className={`flex justify-center rounded-xl gap-10 p-5 w-full bg-white z-10 shadow-md transition-transform duration-500 
-      ease-in-out ${header? "sticky top-0 bg-transparent border-2 w-[60%] mx-auto":""}`}>
+      ease-in-out ${header? "sticky top-0 bg-transparent border-2 w-[75%] mx-auto":""}`}>
         {
           ["Home", "About", 'Contact Us'].map((item,indx) =>(
             <h2 key={indx} className="bg-gradient-to-r from-gray-700 to-white bg-[length:100%_2px] bg-no-repeat bg-bottom pb-2 cursor-pointer">{item}</h2>
